@@ -1,6 +1,6 @@
 import neovim
 
-from mail_api import MailClient as mail
+from .mail import MailClient as mail
 
 
 @neovim.plugin

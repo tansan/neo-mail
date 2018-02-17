@@ -1,7 +1,7 @@
 import imaplib
 
 
-class MailClient(object):
+class MailClient:
 
     def __init__(self):
         self.server = ''
