@@ -1,17 +1,22 @@
 import neovim
 
-from .mail import MailClient as mail
+from .mail import MailClient
 
 
 @neovim.plugin
-class NeovimMail(object):
+class NeovimMail:
 
     def __init__(self, nvim):
         self.nvim = nvim
+        self.mail = MailClient()
 
-    def echo(self, message):
-        self.nvim.command("echo '[NEO-MAIL] {}'".format(message))
+    def output(self, message):
+        self.nvim.command('setlocal splitright')
+        self.nvim.command('vnew')
+        self.nvim.command('setlocal buftype=nofile bufhidden=hide nolist nonumber modifiable nowrap')
+        self.nvim.current.buffer.append(message)
+        self.nvim.command('setlocal nomodifiable')
 
-    @neovim.command('NeoVimMailBoxList')
-    def getMailBoxList(self):
-        self.echo(mail.getMailBoxList())
+    @neovim.command('NeoVimMailList')
+    def outputMailList(self):
+        self.output(self.mail.getMailList())
